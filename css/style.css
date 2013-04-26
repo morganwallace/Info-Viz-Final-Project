@@ -1,0 +1,209 @@
+/* INFO 247 Spring 2013
+Ravelry Designer Visualization
+
+Colours
+ - Dark grey: #303030
+ - Light Grey: #F3F3F3
+ - Tan: #D3D3B1
+ - Pink (Accents): #B71F4A
+ - Green (Accents): #C2EBB1 */
+
+@import url(http://fonts.googleapis.com/css?family=Cherry+Swash);
+
+
+/****************** Basic html and body styling ********************/
+html{
+
+	background-image:url('knit-grey.png');
+	background-repeat: repeat;
+}
+
+html, 
+body{
+	height: 90%;
+	margin: 0;
+
+	font-family: "Cherry Swash",Helvetica, Arial, sans-serif;
+	color: #D3D3B1;
+
+	/*background-color:#303030;
+	background-color: rgba(48,48,48,.6);*/
+}
+
+/****************** Basic header and link styling ********************/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	
+	font-family: "Cherry Swash",Helvetica, Arial, sans-serif;
+	color: #D3D3B1;
+	/*background-color: rgba(48,48,48,.7);*/
+}
+
+a{
+	color: #B71F4A;
+}
+
+/****************** float classes ********************/
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
+/****************** header/sidebar styling ********************/
+header{
+	width: 180px;
+	margin: 30px;
+	position: fixed;
+	left:0;
+	top:0;
+	padding: 15px;
+
+	color: #D3D3B1;
+	background-color: #303030;
+	background-color: rgba(48,48,48,.75);
+	/*z-index: 1000;*/
+
+}
+
+header h1{
+	text-align: center;
+	font-weight: normal;
+}
+
+/* giving the header a bottom buffer so it doesn't show up under the footer if alpha<1 */
+.headerFullSize{
+	bottom: 52;
+}
+
+/****************** Footer styling ********************/
+footer {
+	height: 40px;
+
+	position: fixed;
+	bottom:0;
+	left:0;
+	right: 0;
+
+	color: #303030;
+	background-color: #D3D3B1;
+	background-color: rgba(211,211,177,.9);
+	text-align: center;
+
+	padding-top: 5px;
+	padding-bottom: 0;
+	border-top: 7px solid #B71F4A;
+	z-index: 100;
+}
+
+/******************* button styling for sidebar ***********************/
+header button {
+	display: block;
+	margin: 5px auto;
+	border: none;
+	background: transparent;
+}
+
+.button{
+	width: 135px;
+	height: 30px;
+	padding: 3px;
+
+	background-color: #D3D3B1;
+	color: #454545;
+
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+
+	font-family: "Cherry Swash";
+	font-size: .95em;
+	text-shadow: 0.1em 0.1em 0.2em #c0c0c0;
+}
+
+.designer{
+}
+
+.category{
+	background-color: #C2EBB1;
+	text-shadow: 0.1em 0.1em 0.2em #b0b0b0;
+}
+/****************** #content styling--not currently in use ********************/
+#content{
+	padding: 10px;
+	background-color: rgba(48,48,48,1);
+}
+
+/* use this to push items to the right so it doesn't show up under the header/sidebar*/
+.left-banner-active{
+	margin-left: 270px;
+}
+
+/****************** Modal styling ********************/
+.hidden{
+	display:none;
+}
+
+.overlay{
+	background-color: #D3D3B1;
+	color: #303030;
+	width: 90%;
+	margin: 25px;
+	padding: 10px;
+	border: 2px solid #B71F4A;
+}
+
+
+/****************** Graph styling ********************/
+#graph{
+	width: 90%;
+	margin: 25px;
+	padding: 10px;
+}
+
+.axis path,.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+svg{
+	background-color: #F3F3F3;
+	color: #303030;
+	border: 6px solid #B71F4A;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+.tooltip{
+	font-size: 4;
+	color: black;
+}
+.keyText{
+	font-family: sans-serif;
+	font-size:10;
+}
+
+.YaxisLabel, XaxisLabel{
+	font-family: sans-serif;
+	font-size: 15;
+.popup{
+	    font-family: sans-serif;
+    font-size: 11px;
+}
+a{
+	text-decoration: none
+}
+
+#svgImageGrid div{
+	border: black;
+}

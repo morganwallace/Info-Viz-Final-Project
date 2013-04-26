@@ -1,0 +1,161 @@
+/* INFO 247 Spring 2013
+Ravelry Designer Visualization
+
+Colours
+ - Dark grey: #303030
+ - Light Grey: #D3D3D3
+ - Tan: #D3D3B1
+ - Pink (Accents): #B71F4A
+ - Green (Accents): #C2EBB1 */
+
+@import url(http://fonts.googleapis.com/css?family=Cherry+Swash);
+
+
+html{
+
+	background-image:url('knit-grey.png');
+	background-repeat: repeat;
+}
+
+html, 
+body{
+	height: 90%;
+	margin: 0;
+
+	font-family: "Cherry Swash",Helvetica, Arial, sans-serif;
+	color: #D3D3B1;
+
+	/*background-color:#303030;
+	background-color: rgba(48,48,48,.6);*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	
+	font-family: "Cherry Swash",Helvetica, Arial, sans-serif;
+	color: #D3D3B1;
+	/*background-color: rgba(48,48,48,.7);*/
+}
+
+a{
+	color: #B71F4A;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
+header{
+	width: 180px;
+	margin:0;
+	position: fixed;
+	left:0;
+	top:0;
+	padding: 15px;
+
+	color: #D3D3B1;
+	background-color: #303030;
+	background-color: rgba(48,48,48,.75);
+	/*z-index: 1000;*/
+}
+
+.headerFullSize{
+	bottom: 52;
+}
+
+header h1{
+	text-align: center;
+	font-weight: normal;
+}
+
+header button {
+	display: block;
+	margin: 3px auto;
+	border: none;
+	background: transparent;
+}
+
+footer {
+	height: 40px;
+
+	position: fixed;
+	bottom:0;
+	left:0;
+	right: 0;
+
+	color: #303030;
+	background-color: #D3D3B1;
+	background-color: rgba(211,211,177,.9);
+	text-align: center;
+
+	padding-top: 5px;
+	padding-bottom: 0;
+	border-top: 7px solid #B71F4A;
+	z-index: 100;
+}
+
+#content{
+	padding: 10px;
+	background-color: rgba(48,48,48,.6);
+}
+
+.left-banner-active{
+	margin-left: 210px;
+}
+
+.hidden{
+	display:none;
+}
+
+.overlay{
+	background-color: #D3D3B1;
+	color: #303030;
+	width: 90%;
+	margin: 25px;
+	padding: 10px;
+	border: 2px solid #B71F4A;
+}
+
+/* modal/overlay code that I need to roll in to suit
+#overlay {
+     visibility: hidden;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+}
+#overlay div {
+     width:300px;
+     margin: 100px auto;
+     background-color: #fff;
+     border:1px solid #000;
+     padding:15px;
+     text-align:center;
+}
+*/
+
+.axis path,.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+svg{
+	background-color: white;
+}
