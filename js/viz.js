@@ -6,16 +6,17 @@ $(document).ready(function() {
 	//Filter Designer by button click
 	$(".designer").click(function(){
 		if(filterDesigner!=$(this).text()){
-		filterDesigner=$(this).text(); //sets the filter to the designer that is clicked.
-		$(this).css("background-color","#B71F4A")
-		$(this).siblings().css("background-color", "#D3D3B1");
+			filterDesigner=$(this).text(); //sets the filter to the designer that is clicked.
+			$(this).css("background-color","#B71F4A");
+			$(this).siblings().css("background-color", "#D3D3B1");
 		}
 		else{
-			filterDesigner="All Designers"
+			filterDesigner="All Designers";
 			$(this).css("background-color", "#D3D3B1");
 		}
 		$("svg").remove();
-		run()
+		$("#imageGrid div").remove();
+		run();
 	})
 	//Filter Category
 	$('.category').click(function() {
@@ -25,13 +26,15 @@ $(document).ready(function() {
     		$(this).css("background-color","#C2EBB1");
     		
     		$("svg").remove();
-			run()	
+			$("#imageGrid div").remove();
+			run();	
 	    }
 	    else{ // add the filter
     		filterCategory.push($(this).text());
     		$(this).css("background-color","#B71F4A")
     		$("svg").remove();
-			run()
+			$("#imageGrid div").remove();
+			run();
 	    }
     })
     
@@ -45,12 +48,12 @@ function run(){
 	});
 }
 function viz(dataset){
-		
+		console.log("ping");
 	
 	//#############  Visualization  ##############
 	// Width, height, and padding of SVG box
-	var w = 700;
-	var h = 400;
+	var w = 1000; //previously 700, then 1200
+	var h = 300; //previously 400
 	var padding = 30;
 	var bottompadding = 50;
 	var sidePadding = 70;
@@ -90,7 +93,8 @@ function viz(dataset){
 					  .scale(yScale)
 					  .orient("left");
 		
-		
+	//******  Draw Elements  *****
+	//Circles	
 	function makeCircles(){		
 		//Create circles
 				console.log("makin' circles!")
@@ -116,64 +120,26 @@ function viz(dataset){
 			html: true, 
 			title: function() {
 			  var d = this.__data__;
-			  return "<div class='popup'><a href='"+d.Link+"'>"+d.Name+ "'  Category: "+d.Category+"<div><img src="+d.Photo+"></div><div>Price: $"+d.Price+"0</div></div>"; 
+			  return "<div class='popup'><a href='"+d.Link+"'>"+d.Name+ "'  Category: "+d.Category+"<div><img src="+d.Photo+"></div><div>Price: "+d.Price+"</div></div>"; 
 			}
 		});
 	}
-
+	
 	// Filter the data from the file to only show one designer
 	if (filterDesigner!="All Designers"){
 		dataset=dataset.filter(function(d) { return d.Designer == filterDesigner })
 	}
-	console.log(filterCategory)
-	if(filterCategory!=false){
-
-		for (var i=0;i<filterCategory.length;i++){
-
-			dataset=dataset.filter(function(d) { return d.Category == filterCategory[i] })
-			makeCircles()
-		}
+	var dataset_copy=dataset
+	
+	if(filterCategory!=false){		
+		dataset=dataset.filter(function(d) { return d.Category == filterCategory[0] })
+		for (var i=1;i<filterCategory.length;i++){
+			dataset=dataset.concat(dataset_copy.filter(function(d) { return d.Category == filterCategory[i] }))
+		}	
+	}
+	
+	makeCircles()
 		
-	}
-	else{
-		makeCircles()
-	}
-
-/*
-	
-//####### TOOLTIPS  #######	
-	var tooltipH=20;
-	var tooltipW=100;
-	   
-	var tooltip = svg.selectAll("rect")
-		.data(dataset)
-		.enter()
-		.append("rect")
-		.attr('x',function(d){
-			return xScale(d.Hearts)-(tooltipW/2);
-		})
-		.style("z-index", "10")
-		.attr("class","tooltip")
-		.attr("y",function(d){
-			return yScale(d.Projects)-(tooltipH+5);
-		})
-		.attr({
-			"height":tooltipH,
-			"width":tooltipW,
-			"stroke":"black",
-			"fill-opacity":"0"
-		})
-		.append("div")
-			.text(function(d){
-				return d.Name
-			})
-			.style("z-index","10")
-		.style("visibility", "hidden")
-		;	
-	
-	
-*/		
-	
 	//Create X axis
 	svg.append("g")
 		.attr("class", "axis")
@@ -188,28 +154,28 @@ function viz(dataset){
 		
 	//Graph Title
 	svg.append("text")
-		.text(filterDesigner)
+		.text("Pattern Popularity - " + filterDesigner)
 		.attr({
-			"x":function(){return (w/2)-40},
+			"x":function(){return (w/2)-120},
 			"y":"20",
 			"class":"graphTitle"
 		});
 
 		//Y-Axis Label
 	svg.append("text")
-		.text("# Projects per Pattern")
+		.text("# Projects Per Pattern")
 		.attr({
 			"transform":"rotate(90)",
-			"x":function(){return (padding)+90},
+			"x":function(){return (padding)+40},
 			"y":function(){return -1*(sidePadding/6)},
 			"class":"YaxisLabel",
 		});		
 		
 		//X-Axis Label
 	svg.append("text")
-		.text("# Hearts(likes) per Pattern")
+		.text("# Hearts (likes) Per Pattern")
 		.attr({
-			"x":function(){return (w/3)},
+			"x":function(){return (w/2)-70},
 			"y":function(){return h-(bottompadding/3)+5},
 			"class":"YaxisLabel",
 		});		
@@ -228,23 +194,45 @@ function viz(dataset){
 		
 		
 	//Setup Image Grid
-	var gridW=500;
-	
 	var imgGrid = d3.select("#imageGrid")	
-		.append("svg")
-		.attr({"width": gridW,
+		.append("div")
+		.attr({
 			   "id":"svgImageGrid",
 			   })
 			   ;
 	
+	// ****** This filters the pictures that are shown
+	pictureData=dataset.filter(function(d) { return (d.Projects >=1000)&&(d.Projects<= 1000) })
+	
 	//Create images in grid
 	var imagesInGrid=imgGrid.selectAll("div")
-	   .data(dataset)
+	   .data(pictureData)
 	   .enter()
 	   .append("div")
-	   .style("height","10")
-	   .style("width","10")
-	   .style("float","left")
-	   .style("border","black")
+	   .attr("class","imgContainer")
+	   		;
+	   		
+   	var imageLink =imagesInGrid.append("a")
+   		.attr("href",function(d){return d.Link})
+   				.on("mouseover",function(){
+		    $(this).children('p').toggleClass("hidden")
+		    })
+		.on("mouseout",function(){
+		    $(this).children('p').toggleClass("hidden")
+		    })
+    ;
 	   
+	imageLink.append("img")
+		.attr({"src":function(d){return d.Photo;}
+		})
+		.classed("gridPic", true)
+
+		;	
+	imageLink.append('p')
+		.text(function(d){return "'"+d.Name+"' by: "+d.Designer+" - "+d.Price})
+		.attr("class","overlay hidden")
+		
+		;
+					
+
 }

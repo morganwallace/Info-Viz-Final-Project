@@ -10,25 +10,57 @@
     
     <!-- Font -->
     
+
     <!-- Scripts -->
-    <script type="text/javascript"  src="js/jquery.min.js"></script>
-    <script src="js/d3.min.js" type="text/javascript"></script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.qtip.js"></script>
+    <script src="js/d3.v3.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/viz.js"></script>
     <script type="text/javascript" src="js/modal.js"></script>
+    <script type="text/javascript" src="js/jquery.tipsy.js"></script>
+    
+    <!--Styles -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/css/jquery.qtip.css" />
+    <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
 
-    <header class="headerFullSize">
-        <h1>Ravelry Designers</h1>
-        <button class="designer button" onclick="toggleModal('rebecca')">Rebecca Danger</button>
-        <button class="designer button" onclick="toggleModal('jared')">Jared Flood</button>
-        <button class="designer button" onclick="toggleModal('cookie')">Cookie A</button>
-        <button class="designer button" onclick="toggleModal('ysolda')">Ysolda Teague</button>
-        <button class="designer button" onclick="toggleModal('stephen')">Stephen West</button>
-        <button class='button category' filtered=true>Feet / Legs</button>
+    <!--header>
+        <h2>Ravelry Designers</h2>
+    </header-->
+    <div id="filters">
+        <div><!-- Designer Filters -->
+            <button class="button designer" onclick="toggleModal('ysolda')">Ysolda Teague</button>
+            <button class="button designer"onclick="toggleModal('cookie')" >Cookie A</button>
+            <button class="button designer" onclick="toggleModal('jared')" >Jared Flood</button>
+            <button class="button designer"onclick="toggleModal('rebecca')" >Rebecca Danger</button>
+            <button class="button designer"onclick="toggleModal('stephen')" >Stephen West</button>
+        </div>
 
-    </header>
+        <div><!--    Category Filters      -->
+            <button class='button category' filtered=true>Bag</button>
+            <button class='button category' filtered=true>Blankets / Blocks</button>
+            <button class='button category' filtered=true>Home / Decor</button>
+            <button class='button category' filtered=true>Feet / Legs</button>
+            <button class='button category' filtered=true>Hands</button>
+            <button class='button category' filtered=true>Toys</button>
+            <button class='button category' filtered=true>Hats</button>
+            <button class='button category' filtered=true>Clothes</button>
+        </div>
+    </div>
 
+        <!--Blankets / Blocks   15
+Home / Decor    10
+Feet / Legs 105
+Neck / Torso    114
+Hands   29
+Toys    76
+Hats    67
+Clothes 66  
+oh and there's 1 bag-->
     <div class="left-banner-active">
         <div id="blah" class="overlay">click a button to the left. this is a hack. I don't care.</div>
         <div id="cookie" class="hidden">cookie.</div>

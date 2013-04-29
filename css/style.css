@@ -18,10 +18,10 @@ html{
 	background-repeat: repeat;
 }
 
-html, 
+html,
 body{
-	height: 90%;
-	margin: 0;
+	width: 99%;
+	margin: 0 auto;
 
 	font-family: "Cherry Swash",Helvetica, Arial, sans-serif;
 	color: #D3D3B1;
@@ -39,12 +39,13 @@ h5,
 h6 {
 	
 	font-family: "Cherry Swash",Helvetica, Arial, sans-serif;
-	color: #D3D3B1;
-	/*background-color: rgba(48,48,48,.7);*/
+	text-align: center;
+	font-weight: normal;
 }
 
 a{
 	color: #B71F4A;
+	text-decoration: none;
 }
 
 /****************** float classes ********************/
@@ -56,35 +57,28 @@ a{
 	float: right;
 }
 
-/****************** header/sidebar styling ********************/
+/****************** header styling ********************/
 header{
-	width: 180px;
-	margin: 30px;
-	position: fixed;
-	left:0;
-	top:0;
-	padding: 15px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 
-	color: #D3D3B1;
-	background-color: #303030;
-	background-color: rgba(48,48,48,.75);
-	/*z-index: 1000;*/
+	border-bottom: 7px solid #B71F4A;
 
+	color: #303030;
+	background-color: #D3D3B1;
+	background-color: rgba(211,211,177, .9);
+	z-index: 100;
 }
 
-header h1{
-	text-align: center;
-	font-weight: normal;
-}
-
-/* giving the header a bottom buffer so it doesn't show up under the footer if alpha<1 */
-.headerFullSize{
-	bottom: 52;
+#filter h1,h2,h3{
+	background-color: rgba(211,211,177,.9);
+	padding-top: 10px;
 }
 
 /****************** Footer styling ********************/
 footer {
-	height: 40px;
+	height: 30px;
 
 	position: fixed;
 	bottom:0;
@@ -102,22 +96,21 @@ footer {
 	z-index: 100;
 }
 
-/******************* button styling for sidebar ***********************/
-header button {
+
+/******************* button styling ***********************/
+button {
 	display: block;
+
+	width: 140px;
+	height: 30px;
+
 	margin: 5px auto;
+
 	border: none;
 	background: transparent;
-}
-
-.button{
-	width: 135px;
-	height: 30px;
-	padding: 3px;
 
 	background-color: #D3D3B1;
 	color: #454545;
-
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 
@@ -126,23 +119,43 @@ header button {
 	text-shadow: 0.1em 0.1em 0.2em #c0c0c0;
 }
 
+
+.button-selected{
+	color: #D3D3B1;
+	background-color: #B71F4A;
+}
+
 .designer{
+
+
 }
 
 .category{
 	background-color: #C2EBB1;
 	text-shadow: 0.1em 0.1em 0.2em #b0b0b0;
 }
-/****************** #content styling--not currently in use ********************/
-#content{
-	padding: 10px;
-	background-color: rgba(48,48,48,1);
+
+
+/****************** filter styling ********************/
+
+#filters{
+	width: 180px;
+	position: fixed;
+	right:20;
+	top:10;
+	padding: 15px 5px;
+
+	color: #D3D3B1;
+	background-color: #303030;
+	background-color: rgba(48,48,48,.75);
+
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+#button-designers:hover{
+	cursor: hand;
 }
 
-/* use this to push items to the right so it doesn't show up under the header/sidebar*/
-.left-banner-active{
-	margin-left: 270px;
-}
 
 /****************** Modal styling ********************/
 .hidden{
@@ -150,30 +163,46 @@ header button {
 }
 
 .overlay{
-	background-color: #D3D3B1;
+	background-color: #F3F3F3;
+	background-color: rgba(243,243,243,.75);
 	color: #303030;
-	width: 90%;
-	margin: 25px;
-	padding: 10px;
-	border: 2px solid #B71F4A;
-}
+	/*text-shadow: 0.2em 0.2em 0.3em #b0b0b0;*/
 
+	width: 140px;
+/* 	margin: 25px; */
+	padding:0px 10px 0px 10px;
+	font-size: 12;
+
+	/*border: 2px solid #B71F4A;*/
+/* 	border-radius: 3px; */
+	position: absolute;
+	bottom:0;
+/* 	bottom: 0; */
+
+
+	/* for testing */
+/* 	position: fixed; */
+/* 	top: 200; */
+/* 	left: 100; */
+}
 
 /****************** Graph styling ********************/
 #graph{
-	width: 90%;
-	margin: 25px;
+	width: 99%;
+	margin: auto auto;
+	/*width: 90%;
+	/*margin: 25px;*/
 	padding: 10px;
 }
 
-.axis path,.axis line {
+.axis path, .axis line {
     fill: none;
     stroke: black;
     shape-rendering: crispEdges;
 }
 
 .axis text {
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 11px;
 }
 
@@ -193,17 +222,45 @@ svg{
 	font-size:10;
 }
 
-.YaxisLabel, XaxisLabel{
+.YaxisLabel, .XaxisLabel{
 	font-family: sans-serif;
 	font-size: 15;
-.popup{
-	    font-family: sans-serif;
-    font-size: 11px;
-}
-a{
-	text-decoration: none
 }
 
-#svgImageGrid div{
-	border: black;
+.popup{
+	font-family: sans-serif;
+    font-size: 11px;
+}
+
+/************* image grid and image styling ******************/
+
+/*#imageGrid div, .gridPic{
+	border: 10px solid #303030;
+	margin-bottom: 20;
+	margin-right: 10;
+}*/
+
+#imageGrid{
+	width: 1200px;
+	margin: auto auto;
+   -webkit-column-count: 6;
+   -webkit-column-gap:   0px;
+   -moz-column-count:    6;
+   -moz-column-gap:      0px;
+   column-count:         6;
+   column-gap:           0px;
+}
+
+.gridPic{
+	width: 140px; 
+    background-position: center center;
+	border: 10px solid #303030;
+	margin: 5px auto;
+	padding: 0;
+
+	/*margin-bottom: 20;
+	margin-right: 10;*/
+}
+.imgContainer{
+	position: relative;
 }

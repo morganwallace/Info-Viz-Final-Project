@@ -19,21 +19,32 @@ def webpage_setup(url): #Setup the document
 def get_pattern_info(url):
 	doc=webpage_setup(url)
 
+	#get name
+	name=doc.xpath("//*[@class='show']/h2/text()")
+	name=name[0].strip()
+	
+	#get rating
+	rating=doc.xpath("//*[@class='pattern_summary']/div/[@class='rating-foreground inline_stars_rating']/@title")
+# 	rating = rating[0][:-9][:5]
+	print rating
+	quit()
+
+	
 	#get category
 	category=doc.xpath("//*[@class='category']/a/span[1]/text()")
 
 	#get price
 	try:
 		price=doc.xpath("//*[@class='downloadable']/strong/text()") 
-		price=float(price[0][1:-4])#costs money
-	except:price=0.00#free
+		price=price[0][:-4]#costs money
+	except:price="Free"#free
 
 	#get projects
 	proj=doc.xpath('//*[@id="people_tab"]/a/strong/text()')
 	
 	if proj != []:proj=proj[0]
 	else:proj=0
-	return [category[0],price,proj]
+	return [category[0],price,proj,name,rating]
 	
 #Get url for each page of designer
 def designer_pages(designer):
@@ -49,9 +60,6 @@ def parse_and_save(url):
 	#Get Designer's Name
 	designer=doc.xpath("//*[@class='profile']/h1/text()")[0].strip()
 	print ("Parsing "+designer+"'s page:\t"+url+"\n")
-		
-	#get project names
-	names=doc.xpath("//*[@class='pattern_name']/a/text()")
 	
 	#get project links
 	links=doc.xpath("//*[@class='pattern_name']/a/@href")
@@ -70,18 +78,21 @@ def parse_and_save(url):
 	categories=[]
 	prices=[] 
 	projects=[]
+	names=[]
+	ratings=[]
 	for link in links:
 		print("Crawling: "+link)
 		pattern_crawl=get_pattern_info(link)
 		categories.append(pattern_crawl[0])
 		prices.append(pattern_crawl[1])
 		projects.append(pattern_crawl[2])
+		names.append(pattern_crawl[3])
+		ratings.append(pattern_crawl[4])
 	 	sleep(0)	#make the crawler polite - sleep(1) sec
-	
 	#Save
-	print('names: '+str(len(names))+'  hearts: '+str(len(hearts))+'  links: '+str(len(links))+'  photos: '+str(len(photos))+'  projects: '+str(len(projects))+'  categories: '+str(len(categories))+'  prices: '+str(len(prices)))
+	print('names: '+str(len(names))+'  hearts: '+str(len(hearts))+'  links: '+str(len(links))+'  photos: '+str(len(photos))+'  projects: '+str(len(projects))+'  categories: '+str(len(categories))+'  prices: '+str(len(prices))+'  rating: '+str(len(ratings)))
 	for i in range(len(names)):
-		csvFile.writerow([designer, names[i], links[i], photos[i], categories[i], prices[i], projects[i], hearts[i]])
+		csvFile.writerow([designer, names[i], links[i], photos[i], categories[i], prices[i], projects[i], hearts[i], ratings[i]])
 	#Check for extra pages
 	extraPages=doc.xpath("//*[@class='next_page']/@href")
 	if extraPages:
@@ -98,11 +109,11 @@ designerList=["Rebecca Danger","Cookie A","Stephen West","Jared Flood","Ysolda T
 ###########  Setup Export to CSV  ###########
 
 #setup CSV file
-f=open('test3.csv','wb')
+f=open('test4.csv','wb')
 csvFile=csv.writer(f)
 
 #Add Header
-csvFile.writerow(["Designer", "Name", "Link", "Photo", "Category", "Price", "Projects", "Hearts"])
+csvFile.writerow(["Designer", "Name", "Link", "Photo", "Category", "Price", "Projects", "Hearts","Rating"])
 
 
 ###########  MAIN  ############# 
